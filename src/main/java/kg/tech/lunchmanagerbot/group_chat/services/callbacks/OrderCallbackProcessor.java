@@ -1,5 +1,6 @@
 package kg.tech.lunchmanagerbot.group_chat.services.callbacks;
 
+import kg.tech.lunchmanagerbot.commons.models.OrderPlacedEvent;
 import kg.tech.lunchmanagerbot.commons.models.TelegramResponse;
 import kg.tech.lunchmanagerbot.commons.services.CallbackProcessor;
 import kg.tech.lunchmanagerbot.group_chat.mappers.OrderMapper;
@@ -12,6 +13,7 @@ import kg.tech.lunchmanagerbot.support.utils.ReplyKeyboardUtils;
 import kg.tech.lunchmanagerbot.support.utils.TelegramUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.User;
@@ -37,6 +39,7 @@ public class OrderCallbackProcessor implements CallbackProcessor {
     );
 
     private final DailyMenuRepository dailyMenuRepository;
+    private final ApplicationEventPublisher eventPublisher;
     private final MenuItemRepository menuItemRepository;
     private final OrderRepository orderRepository;
     private final OrderMapper orderMapper;
@@ -69,6 +72,7 @@ public class OrderCallbackProcessor implements CallbackProcessor {
         }
 
         orderRepository.save( orderMapper.toNewEntity(fromUser, menuItemName, chatId) );
+        eventPublisher.publishEvent(new OrderPlacedEvent(this, fromUser.getUserName()));
         return telegramResponse.withMessage(buildMessage(menuItemName + " принят", chatId));
     }
 

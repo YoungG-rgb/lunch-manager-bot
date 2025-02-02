@@ -16,3 +16,6 @@ schedulers:
   notification-processing:
     is-running: ${NOTIFICATION_PROCESSING_IS_RUNNING:true}
     cron: ${NOTIFICATION_PROCESSING_CRON:*/2 * * * * *}
+  attendants-deactivation:
+    is-running: ${DEACTIVATE_ATTENDANTS_IS_RUNNING:true}
+    cron: ${DEACTIVATE_ATTENDANTS_CRON:0 0 2 * * ?}

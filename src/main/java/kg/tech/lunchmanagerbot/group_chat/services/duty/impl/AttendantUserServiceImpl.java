@@ -39,4 +39,14 @@ public class AttendantUserServiceImpl implements AttendantUserService {
     public AttendantUserEntity findFirstDutyUser(String groupChatId) {
         return attendantUserRepository.findFirstDutyUser(groupChatId);
     }
+
+    @Override
+    public void activateAttendant(String username) {
+        attendantUserRepository.activateAttendantByUsername(username);
+    }
+
+    @Override
+    public void deactivateAttendants( ) {
+        attendantUserRepository.deactivateAttendants();
+    }
 }

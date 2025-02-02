@@ -8,8 +8,7 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
-import static kg.tech.lunchmanagerbot.configs.BeanQualifiers.NOTIFICATION_PROCESSING_EXECUTOR;
-import static kg.tech.lunchmanagerbot.configs.BeanQualifiers.NOTIFICATION_SCHEDULER_EXECUTOR;
+import static kg.tech.lunchmanagerbot.configs.BeanQualifiers.*;
 
 @EnableAsync
 @Configuration
@@ -17,6 +16,11 @@ public class AsyncConfig {
 
     @Bean(NOTIFICATION_SCHEDULER_EXECUTOR)
     public Executor notificationSchedulerExecutor(){
+        return Executors.newSingleThreadExecutor();
+    }
+
+    @Bean(ATTENDANTS_DEACTIVATION_SCHEDULER_EXECUTOR)
+    public Executor attendantsDeactivationSchedulerExecutor(){
         return Executors.newSingleThreadExecutor();
     }
 

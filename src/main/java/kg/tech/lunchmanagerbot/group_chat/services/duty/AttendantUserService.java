@@ -21,5 +21,9 @@ public interface AttendantUserService {
      */
     AttendantUserEntity findFirstDutyUser(String groupChatId);
 
+    void activateAttendant(String username);
+
+    void deactivateAttendants();
+
 }
 

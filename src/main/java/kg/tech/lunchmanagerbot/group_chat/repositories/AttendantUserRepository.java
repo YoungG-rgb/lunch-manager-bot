@@ -2,9 +2,11 @@ package kg.tech.lunchmanagerbot.group_chat.repositories;
 
 import kg.tech.lunchmanagerbot.group_chat.entities.AttendantUserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import javax.transaction.Transactional;
 import java.util.Optional;
 
 public interface AttendantUserRepository extends JpaRepository<AttendantUserEntity, Long> {
@@ -32,5 +34,15 @@ public interface AttendantUserRepository extends JpaRepository<AttendantUserEnti
 
     @Query(value = "select max(u.priority) from AttendantUserEntity u")
     int getMaxPriority();
+
+    @Modifying
+    @Transactional
+    @Query("update AttendantUserEntity at set at.dutyActive = true where at.username = :username")
+    void activateAttendantByUsername(@Param("username") String username);
+
+    @Modifying
+    @Transactional
+    @Query("update AttendantUserEntity at set at.dutyActive = false")
+    void deactivateAttendants();
 
 }
