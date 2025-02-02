@@ -29,7 +29,7 @@ public class MenuItemEntity {
 
     String buttonText;
 
-    @Column(name = "callback_data")
+    @Column(name = "callback_data", length = 64)
     String callbackData;
 
     public MenuItemEntity(String callbackData, String buttonText) {

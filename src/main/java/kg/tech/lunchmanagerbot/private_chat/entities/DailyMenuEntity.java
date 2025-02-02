@@ -1,6 +1,5 @@
 package kg.tech.lunchmanagerbot.private_chat.entities;
 
-import kg.tech.lunchmanagerbot.group_chat.entities.TelegramGroupEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -33,9 +32,6 @@ public class DailyMenuEntity {
 
     @ManyToMany(fetch = FetchType.LAZY)
     Set<MenuItemEntity> items = new HashSet<>();
-
-    @ManyToMany(fetch = FetchType.LAZY)
-    Set<TelegramGroupEntity> telegramGroups = new HashSet<>();
 
     @Column(name = "owner_chat_id")
     String ownerChatId;

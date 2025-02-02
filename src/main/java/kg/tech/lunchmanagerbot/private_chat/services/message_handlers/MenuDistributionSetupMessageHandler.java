@@ -4,7 +4,6 @@ import kg.tech.lunchmanagerbot.commons.enums.MessageHandlerType;
 import kg.tech.lunchmanagerbot.commons.services.BaseMessageHandler;
 import kg.tech.lunchmanagerbot.group_chat.entities.TelegramGroupEntity;
 import kg.tech.lunchmanagerbot.group_chat.repositories.TelegramGroupRepository;
-import kg.tech.lunchmanagerbot.private_chat.repositories.DailyMenuRepository;
 import kg.tech.lunchmanagerbot.support.annotations.TypedMessageHandler;
 import kg.tech.lunchmanagerbot.support.utils.ReplyKeyboardUtils;
 import kg.tech.lunchmanagerbot.support.utils.TelegramUtils;
@@ -14,12 +13,8 @@ import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
-import java.time.LocalDate;
 import java.util.Map;
 import java.util.stream.Collectors;
-
-import static kg.tech.lunchmanagerbot.commons.models.ExceptionMessageConstant.MENU_EXCEPTION;
-import static kg.tech.lunchmanagerbot.support.utils.DateUtils.getDateOrToday;
 
 @Slf4j
 @Service
@@ -27,19 +22,15 @@ import static kg.tech.lunchmanagerbot.support.utils.DateUtils.getDateOrToday;
 @TypedMessageHandler(MessageHandlerType.MENU_DISTRIBUTION_SETUP)
 public class MenuDistributionSetupMessageHandler extends BaseMessageHandler {
     private final TelegramGroupRepository telegramGroupRepository;
-    private final DailyMenuRepository dailyMenuRepository;
 
     @Override
     public SendMessage handle(Update update) {
-        String chatId = TelegramUtils.getChatIdByUpdate(update);
-        LocalDate date = getDateOrToday(update);
-        if (!dailyMenuRepository.existsByDayAndOwnerChatId(date, chatId)) {
-            return buildMessage(MENU_EXCEPTION, chatId);
-        }
-
-        Map<String, String> allTelegramGroups = telegramGroupRepository.findAllToggled(date, chatId).stream()
+        Map<String, String> allTelegramGroups = telegramGroupRepository.findAllToggled().stream()
                 .collect(Collectors.toMap(TelegramGroupEntity::getCallbackData, TelegramGroupEntity::getName));
-        return buildMessage("Выберите группу:", chatId, ReplyKeyboardUtils.buildSingleRowKeyboard(allTelegramGroups));
+
+        return buildMessage("Выберите группу:", TelegramUtils.getChatIdByUpdate(update),
+                ReplyKeyboardUtils.buildSingleRowKeyboard(allTelegramGroups)
+        );
     }
 
     @Override

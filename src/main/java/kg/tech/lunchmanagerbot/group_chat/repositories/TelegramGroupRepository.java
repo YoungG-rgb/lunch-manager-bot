@@ -2,10 +2,11 @@ package kg.tech.lunchmanagerbot.group_chat.repositories;
 
 import kg.tech.lunchmanagerbot.group_chat.entities.TelegramGroupEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import java.time.LocalDate;
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,26 +15,18 @@ public interface TelegramGroupRepository extends JpaRepository<TelegramGroupEnti
 
     @Query("""
     select new kg.tech.lunchmanagerbot.group_chat.entities.TelegramGroupEntity(
-    tg.callbackData, case when tg.callbackData in :selectedGroups then concat(tg.name, ' ✅') else concat(tg.name, ' ❌') end
-    ) from TelegramGroupEntity tg where tg.isActive = true
+    tg.callbackData, case when tg.isActive = true then concat(tg.name, ' ✅') else concat(tg.name, ' ❌') end
+    ) from TelegramGroupEntity tg
     """)
-    List<TelegramGroupEntity> findAllToggled(@Param("selectedGroups") List<String> selectedGroups);
+    List<TelegramGroupEntity> findAllToggled();
 
-    Optional<TelegramGroupEntity> findByCallbackData(String callbackData);
-
+    @Modifying
+    @Transactional
     @Query("""
-    select new kg.tech.lunchmanagerbot.group_chat.entities.TelegramGroupEntity(
-    tg.callbackData,
-    case
-        when tg.callbackData in (
-            select tg_inner.callbackData from DailyMenuEntity d join d.telegramGroups tg_inner
-            where d.day = :day and d.ownerChatId = :chatId
-        )
-        then concat(tg.name, ' ✅')
-        else concat(tg.name, ' ❌')
-    end
-    ) from TelegramGroupEntity tg where tg.isActive = true
+    update TelegramGroupEntity tg
+    set tg.isActive = case when tg.isActive = true then false else true end
+    where tg.callbackData = :callbackData
     """)
-    List<TelegramGroupEntity> findAllToggled(@Param("day") LocalDate day, @Param("chatId") String ownerChatId);
+    void toggleActive(@Param("callbackData") String callbackData);
 
 }
