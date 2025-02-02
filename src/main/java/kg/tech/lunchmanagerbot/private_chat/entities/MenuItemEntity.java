@@ -10,7 +10,10 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-@Table(name = "menu_items", indexes = @Index(name = "idx_callback_data", columnList = "callback_data"))
+@Table(name = "menu_items", indexes = {
+        @Index(name = "idx_callback_data", columnList = "callback_data"),
+        @Index(name = "idx_order_callback_data", columnList = "order_callback_data")
+})
 public class MenuItemEntity {
 
     @Id
@@ -31,6 +34,9 @@ public class MenuItemEntity {
 
     @Column(name = "callback_data", length = 64)
     String callbackData;
+
+    @Column(name = "order_callback_data", length = 64)
+    String orderCallbackData;
 
     public MenuItemEntity(String callbackData, String buttonText) {
         this.callbackData = callbackData;

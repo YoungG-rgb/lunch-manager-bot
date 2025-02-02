@@ -10,11 +10,9 @@ public enum MessageHandlerType {
     MENU_DISTRIBUTION_SETUP("/menu_distribution_setup"),
     SEND_DAILY_MENU("/send_daily_menu"),
 
-    NEW_USER("/new_user"),
-//    ORDER("/order"),
-//    MENU("/menu"),
     NEW_ATTENDANT("/new_attendant"),
-    GROUPED_ORDER("/grouped_order")
+    SHOW_ATTENDANT_USER("/show_attendant_user"),
+    ORDER("/order")
     ;
 
     private final String command;

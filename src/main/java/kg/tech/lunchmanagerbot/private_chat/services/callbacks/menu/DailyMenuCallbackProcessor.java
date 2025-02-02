@@ -42,7 +42,7 @@ public class DailyMenuCallbackProcessor implements CallbackProcessor {
 
     @Override
     public boolean supports(String callback) {
-        Stream<String> dynamicCallbacks = Stream.of("menu_item_");
+        Stream<String> dynamicCallbacks = Stream.of(MENU_ITEM_PREFIX.getCallback());
         Stream<CallbackData> callbacks = Stream.of(MENU, INIT_DAILY_MENU, SHOW_DAILY_MENU, CONFIRM_MENU);
         return dynamicCallbacks.anyMatch(callback::startsWith) || callbacks.map(Enum::name).anyMatch(callbackData -> callbackData.equals(callback));
     }
@@ -52,7 +52,6 @@ public class DailyMenuCallbackProcessor implements CallbackProcessor {
      */
     @Override
     public Optional<TelegramResponse> onUpdate(Update update) {
-        if (!update.hasCallbackQuery()) return Optional.empty();
         String callbackData = update.getCallbackQuery().getData();
 
         if (callbackRoutes.containsKey(callbackData))

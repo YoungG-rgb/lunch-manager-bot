@@ -26,4 +26,7 @@ public interface MenuItemRepository extends JpaRepository<MenuItemEntity, Long> 
 
     Optional<MenuItemEntity> findByCallbackData(String callbackData);
 
+    @Query("select i.buttonText from MenuItemEntity i where i.orderCallbackData = :orderCallbackData")
+    String getNameByOrderCallbackData(@Param("orderCallbackData") String orderCallbackData);
+
 }

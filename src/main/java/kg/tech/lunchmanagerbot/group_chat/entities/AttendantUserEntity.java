@@ -28,4 +28,6 @@ public class AttendantUserEntity {
 
     Integer priority;
 
+    String groupChatId;
+
 }

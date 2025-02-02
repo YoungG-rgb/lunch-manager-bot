@@ -19,12 +19,11 @@ public class AttendantUserServiceImpl implements AttendantUserService {
     private final AttendantUserMapper attendantUserMapper;
 
     @Override
-    public Optional<AttendantUserEntity> saveIfAbsent(User user) {
+    public Optional<AttendantUserEntity> saveIfAbsent(User user, String groupChatId) {
         if (user.getIsBot()) return Optional.empty();
 
-        AttendantUserEntity attendantUserEntity = attendantUserMapper.toEntity(user);
-        if (!attendantUserRepository.existsByUsername(attendantUserEntity.getUsername())) {
-            attendantUserEntity.setPriority(attendantUserRepository.getMaxPriority());
+        if (!attendantUserRepository.existsByUsername(user.getUserName())) {
+            AttendantUserEntity attendantUserEntity = attendantUserMapper.toNewEntity(user, attendantUserRepository.getMaxPriority(), groupChatId);
             return Optional.of( attendantUserRepository.save(attendantUserEntity) );
         }
 
@@ -32,12 +31,12 @@ public class AttendantUserServiceImpl implements AttendantUserService {
     }
 
     @Override
-    public AttendantUserEntity findFirstNextDutyUser(int priority) {
-        return attendantUserRepository.findFirstNextDutyUser(priority);
+    public AttendantUserEntity findFirstNextDutyUser(int priority, String groupChatId) {
+        return attendantUserRepository.findFirstNextDutyUser(priority, groupChatId);
     }
 
     @Override
-    public AttendantUserEntity findFirstDutyUser() {
-        return attendantUserRepository.findFirstDutyUser();
+    public AttendantUserEntity findFirstDutyUser(String groupChatId) {
+        return attendantUserRepository.findFirstDutyUser(groupChatId);
     }
 }

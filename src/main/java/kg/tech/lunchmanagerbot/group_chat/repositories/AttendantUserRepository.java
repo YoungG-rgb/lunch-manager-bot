@@ -15,17 +15,17 @@ public interface AttendantUserRepository extends JpaRepository<AttendantUserEnti
 
     @Query(value = """
     select u from AttendantUserEntity u
-    where u.priority = (select min(u2.priority) from AttendantUserEntity u2 where u2.dutyActive = true)
+    where u.groupChatId = :groupChatId and u.priority = (select min(u2.priority) from AttendantUserEntity u2 where u2.dutyActive = true and u2.groupChatId = :groupChatId)
     """)
-    AttendantUserEntity findFirstDutyUser();
+    AttendantUserEntity findFirstDutyUser(@Param("groupChatId") String groupChatId);
 
     @Query(value = """
-    select u.* from users u
-    where u.is_active = true and (u.priority > :current_priority or
-    not exists(select 1 from users u2 where u2.priority > :current_priority and u2.is_active = true))
+    select u.* from attendant_users u
+    where u.duty_active = true and u.group_chat_id = :groupChatId and (u.priority > :current_priority or
+    not exists(select 1 from attendant_users u2 where u2.priority > :current_priority and u2.duty_active = true and u2.group_chat_id = :groupChatId))
     order by u.priority fetch first 1 row only
     """, nativeQuery = true)
-    AttendantUserEntity findFirstNextDutyUser(@Param("current_priority") Integer priority);
+    AttendantUserEntity findFirstNextDutyUser(@Param("current_priority") Integer priority, @Param("groupChatId") String groupChatId);
 
     @Query(value = "select count(u) from AttendantUserEntity u")
     int getAllCountUsers();

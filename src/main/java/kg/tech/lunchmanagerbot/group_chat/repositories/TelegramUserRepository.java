@@ -5,6 +5,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.List;
+
 public interface TelegramUserRepository extends JpaRepository<TelegramUserEntity, Long> {
 
     @Query(value = """
@@ -12,5 +14,7 @@ public interface TelegramUserRepository extends JpaRepository<TelegramUserEntity
     end from TelegramUserEntity tu where tu.chatId = :chatId and tu.isMenuCreator = true
     """)
     boolean isMenuCreator(@Param("chatId") String chatId);
+
+    List<TelegramUserEntity> findAllByIsMenuCreatorTrue();
 
 }

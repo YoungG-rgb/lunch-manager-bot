@@ -28,4 +28,6 @@ public class TelegramUserEntity {
     @Column(columnDefinition = "BOOLEAN DEFAULT FALSE")
     Boolean isMenuCreator;
 
+    String callbackData;
+
 }

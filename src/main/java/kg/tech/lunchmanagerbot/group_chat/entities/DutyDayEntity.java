@@ -13,7 +13,10 @@ import java.time.LocalDate;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "duty_days", indexes = @Index(name = "idx_day", columnList = "day", unique = true))
+@Table(name = "duty_days", indexes = {
+        @Index(name = "idx_day", columnList = "day", unique = true),
+        @Index(name = "day_group_chat_id_pkey", columnList = "day,group_chat_id")
+})
 public class DutyDayEntity {
 
     @Id
@@ -21,10 +24,14 @@ public class DutyDayEntity {
     @SequenceGenerator(name = "duty_days_seq", sequenceName = "duty_days_seq", allocationSize = 1)
     Long id;
 
+    @Column(name = "day")
     LocalDate day;
 
     String username;
 
     Integer userPriority;
+
+    @Column(name = "group_chat_id")
+    String groupChatId;
 
 }
