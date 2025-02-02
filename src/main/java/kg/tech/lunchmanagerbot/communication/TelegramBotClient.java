@@ -11,6 +11,7 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.methods.send.SendSticker;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
+import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 @Slf4j
 @Component
@@ -45,6 +46,10 @@ public class TelegramBotClient extends TelegramLongPollingBot {
             if (message.hasText())
                 log.info("Incoming message from chatId: {}, user: {}, text: {}", message.getChatId(), TelegramUtils.userToPrettyString(message.getFrom()), message.getText());
         }
+    }
+
+    public void sendMessage(String text, String chatId) throws TelegramApiException {
+        execute(SendMessage.builder().text(text).chatId(chatId).build());
     }
 
     public void sendMessage(SendMessage sendMessage) {
