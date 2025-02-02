@@ -1,4 +1,4 @@
-package kg.tech.lunchmanagerbot.support.domain;
+package kg.tech.lunchmanagerbot.commons.enums;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

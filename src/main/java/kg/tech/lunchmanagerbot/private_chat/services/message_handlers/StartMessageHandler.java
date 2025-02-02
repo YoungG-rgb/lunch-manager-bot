@@ -1,8 +1,8 @@
 package kg.tech.lunchmanagerbot.private_chat.services.message_handlers;
 
-import kg.tech.lunchmanagerbot.support.BaseMessageHandler;
+import kg.tech.lunchmanagerbot.commons.services.BaseMessageHandler;
 import kg.tech.lunchmanagerbot.support.annotations.TypedMessageHandler;
-import kg.tech.lunchmanagerbot.support.domain.MessageHandlerType;
+import kg.tech.lunchmanagerbot.commons.enums.MessageHandlerType;
 import kg.tech.lunchmanagerbot.support.utils.ReplyKeyboardUtils;
 import kg.tech.lunchmanagerbot.support.utils.TelegramUtils;
 import lombok.RequiredArgsConstructor;
@@ -10,14 +10,14 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
-import kg.tech.lunchmanagerbot.support.domain.CallbackData;
+import kg.tech.lunchmanagerbot.commons.enums.CallbackData;
 
 import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static kg.tech.lunchmanagerbot.support.domain.CallbackData.MENU;
-import static kg.tech.lunchmanagerbot.support.domain.CallbackData.MENU_ITEMS;
+import static kg.tech.lunchmanagerbot.commons.enums.CallbackData.MENU;
+import static kg.tech.lunchmanagerbot.commons.enums.CallbackData.MENU_ITEMS;
 
 @Slf4j
 @Service

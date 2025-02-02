@@ -1,6 +1,6 @@
 package kg.tech.lunchmanagerbot.group_chat.entities;
 
-import kg.tech.lunchmanagerbot.support.domain.MessageHandlerTypeGroup;
+import kg.tech.lunchmanagerbot.commons.enums.MessageHandlerTypeGroup;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -22,6 +22,7 @@ public class TelegramGroupEntity {
     @SequenceGenerator(name = "telegram_groups_seq", sequenceName = "telegram_groups_seq", allocationSize = 1)
     Long id;
 
+    @Column(unique = true)
     String callbackData;
 
     String name;

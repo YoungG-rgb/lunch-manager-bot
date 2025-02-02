@@ -11,3 +11,8 @@ server:
 telegram:
   bot-name: ${BOT_NAME:serv_team_lunch_manager_bot}
   bot-token: ${BOT_TOKEN}
+
+schedulers:
+  notification-processing:
+    is-running: ${NOTIFICATION_PROCESSING_IS_RUNNING:true}
+    cron: ${NOTIFICATION_PROCESSING_CRON:*/2 * * * * *}

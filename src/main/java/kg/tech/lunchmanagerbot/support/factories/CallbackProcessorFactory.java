@@ -1,6 +1,6 @@
 package kg.tech.lunchmanagerbot.support.factories;
 
-import kg.tech.lunchmanagerbot.support.CallbackProcessor;
+import kg.tech.lunchmanagerbot.commons.services.CallbackProcessor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;

@@ -1,4 +1,4 @@
-package kg.tech.lunchmanagerbot.support.domain;
+package kg.tech.lunchmanagerbot.commons.models;
 
 import lombok.experimental.UtilityClass;
 

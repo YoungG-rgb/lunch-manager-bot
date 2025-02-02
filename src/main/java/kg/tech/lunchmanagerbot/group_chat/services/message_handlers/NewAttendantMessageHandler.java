@@ -1,9 +1,9 @@
 package kg.tech.lunchmanagerbot.group_chat.services.message_handlers;
 
 import kg.tech.lunchmanagerbot.group_chat.services.duty.AttendantUserService;
-import kg.tech.lunchmanagerbot.support.BaseMessageHandler;
+import kg.tech.lunchmanagerbot.commons.services.BaseMessageHandler;
 import kg.tech.lunchmanagerbot.support.annotations.TypedMessageHandler;
-import kg.tech.lunchmanagerbot.support.domain.MessageHandlerType;
+import kg.tech.lunchmanagerbot.commons.enums.MessageHandlerType;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -17,8 +17,8 @@ import java.util.Optional;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-@TypedMessageHandler(MessageHandlerType.NEW_USER)
-public class NewUserMessageHandler extends BaseMessageHandler {
+@TypedMessageHandler(MessageHandlerType.NEW_ATTENDANT)
+public class NewAttendantMessageHandler extends BaseMessageHandler {
     private final AttendantUserService attendantUserService;
 
     @Override
@@ -33,7 +33,7 @@ public class NewUserMessageHandler extends BaseMessageHandler {
         List<User> newChatMembers = update.getMessage().getNewChatMembers();
 
         return newChatMembers != null && !newChatMembers.isEmpty() ||
-                update.getMessage().getText().equalsIgnoreCase(MessageHandlerType.NEW_USER.getCommand());
+                update.getMessage().getText().equalsIgnoreCase(MessageHandlerType.NEW_ATTENDANT.getCommand());
     }
 
 }

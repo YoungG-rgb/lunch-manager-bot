@@ -5,9 +5,9 @@ import kg.tech.lunchmanagerbot.private_chat.entities.MenuItemEntity;
 import kg.tech.lunchmanagerbot.private_chat.mappers.DailyMenuMapper;
 import kg.tech.lunchmanagerbot.private_chat.repositories.DailyMenuRepository;
 import kg.tech.lunchmanagerbot.private_chat.repositories.MenuItemRepository;
-import kg.tech.lunchmanagerbot.support.CallbackProcessor;
-import kg.tech.lunchmanagerbot.support.domain.CallbackData;
-import kg.tech.lunchmanagerbot.support.domain.TelegramResponse;
+import kg.tech.lunchmanagerbot.commons.services.CallbackProcessor;
+import kg.tech.lunchmanagerbot.commons.enums.CallbackData;
+import kg.tech.lunchmanagerbot.commons.models.TelegramResponse;
 import kg.tech.lunchmanagerbot.support.utils.ReplyKeyboardUtils;
 import kg.tech.lunchmanagerbot.support.utils.TelegramUtils;
 import lombok.RequiredArgsConstructor;
@@ -23,8 +23,8 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static kg.tech.lunchmanagerbot.support.domain.CallbackData.*;
-import static kg.tech.lunchmanagerbot.support.domain.ExceptionMessageConstant.MENU_EXCEPTION;
+import static kg.tech.lunchmanagerbot.commons.enums.CallbackData.*;
+import static kg.tech.lunchmanagerbot.commons.models.ExceptionMessageConstant.MENU_EXCEPTION;
 import static kg.tech.lunchmanagerbot.support.utils.DateUtils.getDateOrToday;
 
 @Service

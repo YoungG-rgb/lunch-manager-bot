@@ -1,6 +1,6 @@
 package kg.tech.lunchmanagerbot.support.annotations;
 
-import kg.tech.lunchmanagerbot.support.domain.MessageHandlerType;
+import kg.tech.lunchmanagerbot.commons.enums.MessageHandlerType;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

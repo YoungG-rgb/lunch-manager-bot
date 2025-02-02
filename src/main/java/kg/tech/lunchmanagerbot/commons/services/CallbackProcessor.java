@@ -1,6 +1,6 @@
-package kg.tech.lunchmanagerbot.support;
+package kg.tech.lunchmanagerbot.commons.services;
 
-import kg.tech.lunchmanagerbot.support.domain.TelegramResponse;
+import kg.tech.lunchmanagerbot.commons.models.TelegramResponse;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboard;

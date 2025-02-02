@@ -1,10 +1,10 @@
 package kg.tech.lunchmanagerbot.support.factories;
 
 
-import kg.tech.lunchmanagerbot.support.BaseMessageHandler;
+import kg.tech.lunchmanagerbot.commons.services.BaseMessageHandler;
 import kg.tech.lunchmanagerbot.support.annotations.TypedMessageHandler;
-import kg.tech.lunchmanagerbot.support.domain.MessageHandlerType;
-import kg.tech.lunchmanagerbot.support.domain.MessageHandlerTypeGroup;
+import kg.tech.lunchmanagerbot.commons.enums.MessageHandlerType;
+import kg.tech.lunchmanagerbot.commons.enums.MessageHandlerTypeGroup;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.aop.framework.AopProxyUtils;
 import org.springframework.context.ApplicationContext;

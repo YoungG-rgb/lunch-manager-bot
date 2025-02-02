@@ -1,11 +1,11 @@
 package kg.tech.lunchmanagerbot.private_chat.services.message_handlers;
 
+import kg.tech.lunchmanagerbot.commons.enums.MessageHandlerType;
+import kg.tech.lunchmanagerbot.commons.services.BaseMessageHandler;
+import kg.tech.lunchmanagerbot.group_chat.entities.TelegramGroupEntity;
 import kg.tech.lunchmanagerbot.group_chat.repositories.TelegramGroupRepository;
 import kg.tech.lunchmanagerbot.private_chat.repositories.DailyMenuRepository;
-import kg.tech.lunchmanagerbot.support.BaseMessageHandler;
 import kg.tech.lunchmanagerbot.support.annotations.TypedMessageHandler;
-import kg.tech.lunchmanagerbot.support.domain.CallbackData;
-import kg.tech.lunchmanagerbot.support.domain.MessageHandlerType;
 import kg.tech.lunchmanagerbot.support.utils.ReplyKeyboardUtils;
 import kg.tech.lunchmanagerbot.support.utils.TelegramUtils;
 import lombok.RequiredArgsConstructor;
@@ -13,14 +13,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
-import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboard;
-import kg.tech.lunchmanagerbot.group_chat.entities.TelegramGroupEntity;
 
-import java.util.List;
+import java.time.LocalDate;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import static kg.tech.lunchmanagerbot.support.domain.ExceptionMessageConstant.MENU_EXCEPTION;
+import static kg.tech.lunchmanagerbot.commons.models.ExceptionMessageConstant.MENU_EXCEPTION;
 import static kg.tech.lunchmanagerbot.support.utils.DateUtils.getDateOrToday;
 
 @Slf4j
@@ -34,19 +32,14 @@ public class MenuDistributionSetupMessageHandler extends BaseMessageHandler {
     @Override
     public SendMessage handle(Update update) {
         String chatId = TelegramUtils.getChatIdByUpdate(update);
-        if (!dailyMenuRepository.existsByDayAndOwnerChatId(getDateOrToday(update), chatId)) {
+        LocalDate date = getDateOrToday(update);
+        if (!dailyMenuRepository.existsByDayAndOwnerChatId(date, chatId)) {
             return buildMessage(MENU_EXCEPTION, chatId);
         }
 
-        return buildMessage("Выберите группу:", chatId, getCustomKeyboard());
-    }
-
-    private ReplyKeyboard getCustomKeyboard() {
-        Map<String, String> allTelegramGroups = telegramGroupRepository.findAllToggled(List.of("")).stream()
+        Map<String, String> allTelegramGroups = telegramGroupRepository.findAllToggled(date, chatId).stream()
                 .collect(Collectors.toMap(TelegramGroupEntity::getCallbackData, TelegramGroupEntity::getName));
-
-        allTelegramGroups.put(CallbackData.DISTRIBUTE_DAILY_MENU.name(), CallbackData.DISTRIBUTE_DAILY_MENU.getButtonText( ));
-        return ReplyKeyboardUtils.buildKeyboard(allTelegramGroups);
+        return buildMessage("Выберите группу:", chatId, ReplyKeyboardUtils.buildSingleRowKeyboard(allTelegramGroups));
     }
 
     @Override

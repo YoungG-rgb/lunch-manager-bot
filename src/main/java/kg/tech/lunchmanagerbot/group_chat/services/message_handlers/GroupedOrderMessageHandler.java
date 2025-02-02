@@ -1,8 +1,8 @@
 package kg.tech.lunchmanagerbot.group_chat.services.message_handlers;
 
-import kg.tech.lunchmanagerbot.support.BaseMessageHandler;
+import kg.tech.lunchmanagerbot.commons.services.BaseMessageHandler;
 import kg.tech.lunchmanagerbot.support.annotations.TypedMessageHandler;
-import kg.tech.lunchmanagerbot.support.domain.MessageHandlerType;
+import kg.tech.lunchmanagerbot.commons.enums.MessageHandlerType;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

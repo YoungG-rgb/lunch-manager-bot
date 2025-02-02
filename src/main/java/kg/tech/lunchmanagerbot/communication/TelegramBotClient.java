@@ -1,7 +1,7 @@
 package kg.tech.lunchmanagerbot.communication;
 
 import kg.tech.lunchmanagerbot.configs.props.TelegramBotProperties;
-import kg.tech.lunchmanagerbot.support.OrchestratorService;
+import kg.tech.lunchmanagerbot.commons.services.OrchestratorService;
 import kg.tech.lunchmanagerbot.support.utils.TelegramUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

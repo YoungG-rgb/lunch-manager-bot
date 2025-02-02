@@ -1,10 +1,10 @@
-package kg.tech.lunchmanagerbot.support;
+package kg.tech.lunchmanagerbot.commons.services;
 
 
 import kg.tech.lunchmanagerbot.group_chat.repositories.TelegramGroupRepository;
 import kg.tech.lunchmanagerbot.group_chat.repositories.TelegramUserRepository;
-import kg.tech.lunchmanagerbot.support.domain.MessageHandlerTypeGroup;
-import kg.tech.lunchmanagerbot.support.domain.TelegramResponse;
+import kg.tech.lunchmanagerbot.commons.enums.MessageHandlerTypeGroup;
+import kg.tech.lunchmanagerbot.commons.models.TelegramResponse;
 import kg.tech.lunchmanagerbot.support.factories.CallbackProcessorFactory;
 import kg.tech.lunchmanagerbot.support.factories.MessageHandlersFactory;
 import kg.tech.lunchmanagerbot.support.utils.TelegramUtils;
