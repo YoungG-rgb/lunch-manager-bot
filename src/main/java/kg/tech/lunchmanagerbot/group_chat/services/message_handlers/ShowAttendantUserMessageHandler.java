@@ -18,7 +18,7 @@ import java.text.MessageFormat;
 @Service
 @RequiredArgsConstructor
 @TypedMessageHandler(MessageHandlerType.SHOW_ATTENDANT_USER)
-public class ShowAttendantUser extends BaseMessageHandler {
+public class ShowAttendantUserMessageHandler extends BaseMessageHandler {
     private final DutyDayService dutyDayService;
 
     @Override

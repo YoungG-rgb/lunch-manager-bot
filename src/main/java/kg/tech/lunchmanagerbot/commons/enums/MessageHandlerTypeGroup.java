@@ -11,7 +11,7 @@ import static kg.tech.lunchmanagerbot.commons.enums.MessageHandlerType.*;
 @Getter
 @AllArgsConstructor
 public enum MessageHandlerTypeGroup {
-    SERV_TEAM_LUNCH(List.of(NEW_ATTENDANT, SHOW_ATTENDANT_USER, ORDER)),
+    SERV_TEAM_LUNCH(List.of(NEW_ATTENDANT, SHOW_ATTENDANT_USER, ORDER, SHOW_ORDER)),
     NURTELECOM_COMPANY(Collections.emptyList()),
     PRIVATE_CHAT(List.of(START, MENU_DISTRIBUTION_SETUP, SEND_DAILY_MENU))
     ;

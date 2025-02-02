@@ -12,7 +12,9 @@ public enum MessageHandlerType {
 
     NEW_ATTENDANT("/new_attendant"),
     SHOW_ATTENDANT_USER("/show_attendant_user"),
-    ORDER("/order")
+
+    ORDER("/order"),
+    SHOW_ORDER("/show_order")
     ;
 
     private final String command;
