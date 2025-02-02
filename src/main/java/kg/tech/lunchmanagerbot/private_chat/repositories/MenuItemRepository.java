@@ -17,8 +17,8 @@ public interface MenuItemRepository extends JpaRepository<MenuItemEntity, Long> 
     @Query("""
     select new kg.tech.lunchmanagerbot.private_chat.entities.MenuItemEntity(
         m.callbackData, case
-                            when m.callbackData in :actualDailyMenuItems then concat(m.buttonText, ' ✅')
-                            else concat(m.buttonText, ' ❌')
+                            when m.callbackData in :actualDailyMenuItems then concat('✅ ', m.buttonText)
+                            else concat('❌ ', m.buttonText)
                         end)
         from MenuItemEntity m
     """)

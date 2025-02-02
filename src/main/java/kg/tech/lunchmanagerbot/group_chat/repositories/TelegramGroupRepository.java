@@ -15,7 +15,7 @@ public interface TelegramGroupRepository extends JpaRepository<TelegramGroupEnti
 
     @Query("""
     select new kg.tech.lunchmanagerbot.group_chat.entities.TelegramGroupEntity(
-    tg.callbackData, case when tg.isActive = true then concat(tg.name, ' ✅') else concat(tg.name, ' ❌') end
+    tg.callbackData, case when tg.isActive = true then concat('✅ ', tg.name) else concat('❌ ', tg.name) end
     ) from TelegramGroupEntity tg
     """)
     List<TelegramGroupEntity> findAllToggled();
