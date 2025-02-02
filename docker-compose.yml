@@ -1,0 +1,41 @@
+version: '3.7'
+
+services:
+  postgres:
+    restart: always
+    image: postgres:latest
+    ports:
+      - "5433:5432"
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: pass
+      POSTGRES_DB: lunch-manager-bot-db
+    volumes:
+      - pg_lunch_manager_bot:/var/lib/postgresql/data
+
+  lunch-manager-bot-service:
+    restart: always
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8081:8081"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/lunch-manager-bot-db
+      - SPRING_DATASOURCE_USERNAME=admin
+      - SPRING_DATASOURCE_PASSWORD=pass
+      - SERVER_PORT=8081
+      - BOT_TOKEN=${BOT_TOKEN}
+      - BOT_NAME=serv_team_lunch_manager_bot
+    depends_on:
+      - postgres
+
+  prometheus:
+    image: prom/prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./config/prometheus.yml:/etc/prometheus/prometheus.yml
+
+volumes:
+  pg_lunch_manager_bot:

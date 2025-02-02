@@ -1,0 +1,13 @@
+spring:
+  profiles:
+    include: >
+      schedulers,
+      db,
+      management
+
+server:
+  port: ${SERVER_PORT:8080}
+
+telegram:
+  bot-name: ${BOT_NAME:serv_team_lunch_manager_bot}
+  bot-token: ${BOT_TOKEN}
