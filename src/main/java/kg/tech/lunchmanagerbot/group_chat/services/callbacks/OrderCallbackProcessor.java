@@ -2,7 +2,6 @@ package kg.tech.lunchmanagerbot.group_chat.services.callbacks;
 
 import kg.tech.lunchmanagerbot.commons.models.TelegramResponse;
 import kg.tech.lunchmanagerbot.commons.services.CallbackProcessor;
-import kg.tech.lunchmanagerbot.group_chat.entities.OrderEntity;
 import kg.tech.lunchmanagerbot.group_chat.mappers.OrderMapper;
 import kg.tech.lunchmanagerbot.group_chat.repositories.OrderRepository;
 import kg.tech.lunchmanagerbot.private_chat.entities.DailyMenuEntity;
@@ -69,7 +68,7 @@ public class OrderCallbackProcessor implements CallbackProcessor {
             return telegramResponse.withMessage(buildMessage(menuItemName + " принят", chatId));
         }
 
-        orderRepository.save( orderMapper.toNewEntity(fromUser, menuItemName) );
+        orderRepository.save( orderMapper.toNewEntity(fromUser, menuItemName, chatId) );
         return telegramResponse.withMessage(buildMessage(menuItemName + " принят", chatId));
     }
 

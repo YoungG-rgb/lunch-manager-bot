@@ -27,4 +27,13 @@ public interface OrderRepository extends JpaRepository<OrderEntity, Long> {
     """)
     void updateAmount(@Param("day") LocalDate day, @Param("extId") long userExternalId, @Param("menuItemName") String menuItemName);
 
+    @Query("""
+    select new kg.tech.lunchmanagerbot.group_chat.entities.OrderEntity(o.menuItemName, sum(o.amount))
+    from OrderEntity o
+    where o.day = :day and o.fromChatId = :chatId
+    group by o.menuItemName
+    order by sum(o.amount) desc
+    """)
+    List<OrderEntity> findGroupedOrdersBy(@Param("day") LocalDate day, @Param("chatId") String chatId);
+
 }

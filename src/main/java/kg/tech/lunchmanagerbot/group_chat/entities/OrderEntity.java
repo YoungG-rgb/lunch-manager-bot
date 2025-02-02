@@ -33,4 +33,10 @@ public class OrderEntity {
     @Column(name = "day")
     LocalDate day;
 
+    String fromChatId;
+
+    public OrderEntity(String menuItemName, long amount) {
+        this.menuItemName = menuItemName;
+        this.amount = (int) amount;
+    }
 }

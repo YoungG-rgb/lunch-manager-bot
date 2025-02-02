@@ -14,6 +14,7 @@ public interface OrderMapper {
     @Mapping(target = "day", expression = "java( java.time.LocalDate.now() )")
     @Mapping(target = "fromUsername", expression = "java( kg.tech.lunchmanagerbot.support.utils.StringUtils.joinNonEmptyStrings(\" \",fromUser.getFirstName(), fromUser.getLastName()) )")
     @Mapping(target = "menuItemName", source = "menuItemName")
-    OrderEntity toNewEntity(User fromUser, String menuItemName);
+    @Mapping(target = "fromChatId", source = "chatId")
+    OrderEntity toNewEntity(User fromUser, String menuItemName, String chatId);
 
 }
