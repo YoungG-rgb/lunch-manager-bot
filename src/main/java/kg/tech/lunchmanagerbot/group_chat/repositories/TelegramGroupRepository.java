@@ -29,4 +29,7 @@ public interface TelegramGroupRepository extends JpaRepository<TelegramGroupEnti
     """)
     void toggleActive(@Param("callbackData") String callbackData);
 
+    @Query("select new kg.tech.lunchmanagerbot.group_chat.entities.TelegramGroupEntity(tg.callbackData, tg.name, tg.chatId) from TelegramGroupEntity tg where tg.isActive = true")
+    List<TelegramGroupEntity> findAllActive();
+
 }

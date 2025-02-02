@@ -40,4 +40,10 @@ public class TelegramGroupEntity {
         this.callbackData = callbackData;
         this.name = name;
     }
+
+    public TelegramGroupEntity(String callbackData, String name, String chatId) {
+        this.callbackData = callbackData;
+        this.name = name;
+        this.chatId = chatId;
+    }
 }

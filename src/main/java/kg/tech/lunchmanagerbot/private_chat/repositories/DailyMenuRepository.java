@@ -14,6 +14,9 @@ public interface DailyMenuRepository extends JpaRepository<DailyMenuEntity, Long
 
     Optional<DailyMenuEntity> findByDayAndOwnerChatId(LocalDate day, String ownerChatId);
 
+    @Query("select m.formattedMenuMessage from DailyMenuEntity m where m.day = :day and m.ownerChatId = :chatId")
+    String findDailyMenuMessageByDayAndOwnerChatId(@Param("day") LocalDate day, @Param("chatId") String ownerChatId);
+
     boolean existsByDayAndOwnerChatId(LocalDate day, String ownerChatId);
 
 }

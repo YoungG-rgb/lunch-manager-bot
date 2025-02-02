@@ -8,6 +8,7 @@ import lombok.Getter;
 public enum MessageHandlerType {
     START("/start"),
     MENU_DISTRIBUTION_SETUP("/menu_distribution_setup"),
+    SEND_DAILY_MENU("/send_daily_menu"),
 
     NEW_USER("/new_user"),
 //    ORDER("/order"),
