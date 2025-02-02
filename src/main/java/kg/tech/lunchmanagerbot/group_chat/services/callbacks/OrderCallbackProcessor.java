@@ -66,13 +66,13 @@ public class OrderCallbackProcessor implements CallbackProcessor {
         String menuItemName = menuItemRepository.getNameByOrderCallbackData(update.getCallbackQuery().getData());
         TelegramResponse telegramResponse = new TelegramResponse();
 
+        eventPublisher.publishEvent(new OrderPlacedEvent(this, chatId, fromUser.getUserName()));
         if (orderRepository.existsBy(LocalDate.now(), fromUser.getId(), menuItemName)) {
             orderRepository.updateAmount(LocalDate.now(), fromUser.getId(), menuItemName);
             return telegramResponse.withMessage(buildMessage(menuItemName + " принят", chatId));
         }
 
         orderRepository.save( orderMapper.toNewEntity(fromUser, menuItemName, chatId) );
-        eventPublisher.publishEvent(new OrderPlacedEvent(this, fromUser.getUserName()));
         return telegramResponse.withMessage(buildMessage(menuItemName + " принят", chatId));
     }
 

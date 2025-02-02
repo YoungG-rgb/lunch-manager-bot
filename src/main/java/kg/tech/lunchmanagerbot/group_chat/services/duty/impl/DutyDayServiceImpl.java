@@ -36,6 +36,13 @@ public class DutyDayServiceImpl implements DutyDayService {
         return dutyDayRepository.save(dutyDay);
     }
 
+    @Override
+    public void refreshAttendant(String groupChatId) {
+        if (dutyDayRepository.deleteByDayAndGroupChatId(LocalDate.now(), groupChatId) > 0) {
+            this.initDutyDay(groupChatId);
+        }
+    }
+
     private DutyDayEntity initDutyDay(String groupChatId) {
         AttendantUserEntity dutyUser = dutyDayRepository.getLatestDutyDayBy(groupChatId)
                 .map(latestDutyDay -> userService.findFirstNextDutyUser(latestDutyDay.getUserPriority(), groupChatId))

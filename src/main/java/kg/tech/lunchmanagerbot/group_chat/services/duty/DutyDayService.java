@@ -9,5 +9,6 @@ public interface DutyDayService {
     Optional<DutyDayEntity> findByDay(LocalDate day, String groupChatId);
     DutyDayEntity getTodayDutyDay(String groupChatId);
     DutyDayEntity save(DutyDayEntity dutyDay);
+    void refreshAttendant(String groupChatId);
 
 }
