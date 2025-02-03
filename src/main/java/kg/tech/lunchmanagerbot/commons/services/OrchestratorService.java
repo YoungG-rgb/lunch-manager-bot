@@ -60,7 +60,8 @@ public class OrchestratorService {
         String chatId = getChatIdByUpdate(update);
         if (telegramUserRepository.isMenuCreator(chatId)) {
             if (update.hasCallbackQuery()) {
-                return callbackProcessorFactory.getCallbackProcessor(update.getCallbackQuery().getData()).onUpdate(update);
+                return callbackProcessorFactory.getCallbackProcessor(update.getCallbackQuery().getData())
+                                .onUpdateReceived(update);
             }
 
             if (update.hasMessage()) return processMessageByGroup(MessageHandlerTypeGroup.PRIVATE_CHAT, update);
@@ -68,8 +69,7 @@ public class OrchestratorService {
 
         SendMessage sendMessage = SendMessage.builder().chatId(chatId).text("Ты кто?").build();
         SendSticker sendSticker = SendSticker.builder().chatId(chatId).sticker(new InputFile( STICKER_ID )).build();
-        return Optional.of(TelegramResponse.of(List.of(sendMessage), sendSticker));
-
+        return Optional.of(TelegramResponse.of(List.of(sendMessage), sendSticker, null));
     }
 
     /**
@@ -82,7 +82,8 @@ public class OrchestratorService {
         }
 
         if (update.hasCallbackQuery()) {
-            return callbackProcessorFactory.getCallbackProcessor(update.getCallbackQuery().getData()).onUpdate(update);
+            return callbackProcessorFactory.getCallbackProcessor(update.getCallbackQuery().getData())
+                    .onUpdateReceived(update);
         }
 
         return Optional.empty();
@@ -101,7 +102,7 @@ public class OrchestratorService {
                 .filter(Objects::nonNull)
                 .toList();
 
-        return Optional.of(TelegramResponse.of(sendMessages, null));
+        return Optional.of(TelegramResponse.of(sendMessages, null, null));
     }
 }
 

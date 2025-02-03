@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.telegram.telegrambots.meta.api.methods.botapimethods.BotApiMethodBoolean;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.methods.send.SendSticker;
 
@@ -18,6 +19,7 @@ import java.util.List;
 public class TelegramResponse {
     List<SendMessage> sendMessages;
     SendSticker sendSticker;
+    BotApiMethodBoolean action;
 
     public TelegramResponse(SendMessage sendMessages) {
         this.sendMessages = List.of( sendMessages );
